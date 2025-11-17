@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PaisaBank - Web Mobile Banking Platform
 
-## Getting Started
+### Prerequisites
 
-First, run the development server:
+- Node.js 18+ installed
+- npm or yarn
 
+### Installation
+
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd paisabank
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up the database
+```bash
+npm run db:migrate
+npm run db:seed
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Start the development server
+```bash
+npm run dev
+```
 
-## Learn More
+5. Open your browser and navigate to `http://localhost:3000`
 
-To learn more about Next.js, take a look at the following resources:
+## API Endpoints
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Authentication
+- `POST /api/trpc/auth.login` - Login with email and password
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Cards
+- `GET /api/trpc/cards.getAll` - Get all user cards (protected)
 
-## Deploy on Vercel
+### Movements/Transactions
+- `GET /api/trpc/movements.getLast` - Get last 5 transactions (protected)
+- `GET /api/trpc/movements.getAll` - Get all transactions with optional filter (protected)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Database Schema
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### User
+- id, email, password, name, token
+
+### Card
+- id, userId, issuer, name, expDate, lastDigits, balance, currency
+
+### Transaction
+- id, userId, title, amount, transactionType (SUS, CASH_IN, CASH_OUT), date
+
+## Scripts
+
+```bash
+npm run dev               # Start development server
+npm run build             # Build for production
+npm run start             # Start production server
+npm run lint              # Run ESLint
+npm run db:generate       # Generate Prisma Client
+npm run db:migrate        # Run database migrations
+npm run db:migrate:deploy # Deploy migrations to production
+npm run db:seed           # Seed database with test data
+npm run db:studio         # Open Prisma Studio
+```
+
+### Local Development Setup
+
+1. Create `.env` file in project root:
+```bash
+# Copy from Supabase Dashboard > Project Settings > Database
+DATABASE_URL="postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+DIRECT_URL="postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-us-east-1.pooler.supabase.com:5432/postgres"
+```
+
+2. Run migrations:
+```bash
+npm run db:migrate
+```
+
+3. Seed the database:
+```bash
+npm run db:seed
+```
+
+4. Start development server:
+```bash
+npm run dev
+```

@@ -1,0 +1,41 @@
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/preflight" layer(base);
+@import "tailwindcss/utilities" layer(utilities);
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: #F9FAFC;
+    color: #171717;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (min-width: 481px) {
+  body {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+}

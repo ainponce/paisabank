@@ -112,7 +112,7 @@ export default function PerfilPage() {
     logout();
   };
 
-  const formatDate = (date: Date) => {
+  const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString("es-ES", {
       year: "numeric",
       month: "long",
